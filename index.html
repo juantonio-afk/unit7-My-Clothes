@@ -1,0 +1,1488 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7654da">
+<title>English Adventure - My Clothes</title>
+
+<style>
+:root {
+  font-family: system-ui, Arial, sans-serif;
+  color: #302748;
+  background: #f5f2ff;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; }
+button, input { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+button:disabled { opacity: .55; cursor: default; }
+button:focus-visible, input:focus-visible {
+  outline: 3px solid #f6b541;
+  outline-offset: 3px;
+}
+header {
+  background: linear-gradient(125deg,#694ed2,#a267e1,#d97fca);
+  color: white;
+  padding: 23px 16px;
+  border-radius: 0 0 26px 26px;
+}
+.shell { max-width: 850px; margin: auto; }
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+h1 {
+  font-size: clamp(23px,5vw,34px);
+  margin: 0 0 5px;
+}
+header p { font-size: 14px; margin: 0; }
+.stars {
+  background: #ffffff33;
+  border-radius: 16px;
+  padding: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 17px 14px 38px;
+}
+.card {
+  background: white;
+  border-radius: 23px;
+  padding: 22px;
+  box-shadow: 0 7px 25px #35245d13;
+}
+.welcome { background: #fff7e6; }
+h2 {
+  font-size: clamp(22px,5vw,28px);
+  margin: 0 0 13px;
+}
+p { line-height: 1.6; }
+.muted { color: #746b88; }
+.center { text-align: center; }
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.language-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.lang-button {
+  border: 2px solid #ded4f7;
+  background: white;
+  border-radius: 12px;
+  padding: 9px 12px;
+  font-weight: 800;
+  color: #61517e;
+}
+.lang-button.active {
+  background: #7654da;
+  color: white;
+  border-color: #7654da;
+}
+.student-button {
+  background: #eee8ff;
+  color: #6146a8;
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 800;
+}
+.menu {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 15px;
+}
+.game {
+  background: white;
+  border: 2px solid #e5def9;
+  border-radius: 19px;
+  padding: 16px 13px;
+  min-height: 125px;
+  text-align: left;
+  color: #402e64;
+}
+.game .emoji { display: block; font-size: 33px; }
+.game strong {
+  display: block;
+  font-size: 16px;
+  margin: 8px 0 4px;
+}
+.game small {
+  color: #706781;
+  line-height: 1.4;
+}
+.primary, .secondary {
+  border: 0;
+  border-radius: 14px;
+  min-height: 49px;
+  padding: 12px 19px;
+  font-weight: 850;
+}
+.primary {
+  background: #7654da;
+  color: white;
+}
+.secondary {
+  background: #eee8ff;
+  color: #6146ae;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 19px;
+}
+.input-name, .answer-input {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  margin: 15px auto;
+  border: 2px solid #c9b8f0;
+  border-radius: 14px;
+  padding: 14px;
+  min-height: 56px;
+  font-size: 20px;
+  text-align: center;
+  background: white;
+  color: #302748;
+}
+.progress {
+  background: #eae3fa;
+  border-radius: 99px;
+  height: 12px;
+  overflow: hidden;
+  margin: 13px 0 21px;
+}
+.progress-fill {
+  height: 100%;
+  background: #9367e8;
+  border-radius: 99px;
+}
+.game-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.question {
+  font-size: clamp(21px,5vw,29px);
+  font-weight: 850;
+  text-align: center;
+  margin: 17px 0 22px;
+  line-height: 1.4;
+}
+.picture {
+  min-height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(70px,17vw,110px);
+  margin: 12px 0;
+}
+.picture svg { width: 110px; height: 110px; }
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 11px;
+}
+.choice {
+  background: #faf8ff;
+  border: 2px solid #e3d9f7;
+  border-radius: 16px;
+  padding: 14px 8px;
+  min-height: 65px;
+  color: #473469;
+  font-weight: 850;
+}
+.choice.correct {
+  background: #e3faed;
+  border-color: #41b47f;
+}
+.choice.incorrect {
+  background: #fff0eb;
+  border-color: #d97878;
+}
+.choice.selected {
+  background: #eee8ff;
+  border-color: #8c69da;
+}
+.option-picture {
+  display: block;
+  font-size: 49px;
+  min-height: 53px;
+  line-height: 1.2;
+}
+.option-picture svg {
+  width: 56px;
+  height: 56px;
+}
+.notice {
+  background: #eee9ff;
+  color: #563992;
+  padding: 13px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: 800;
+  margin-top: 16px;
+}
+.notice.ok {
+  background: #e4f9ec;
+  color: #1b7048;
+}
+.notice.no {
+  background: #fff0e9;
+  color: #97522e;
+}
+.vocab-word {
+  text-align: center;
+  font-size: clamp(31px,8vw,46px);
+  font-weight: 950;
+  color: #6746bd;
+}
+.translation {
+  text-align: center;
+  font-size: 20px;
+  min-height: 34px;
+}
+.sentence, .wordbank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sentence {
+  min-height: 87px;
+  background: #fcfaff;
+  border: 2px dashed #b9a7e5;
+  border-radius: 15px;
+  padding: 13px;
+}
+.wordbank {
+  margin: 19px 0;
+  min-height: 58px;
+}
+.tile {
+  border: 2px solid #cab9f0;
+  border-radius: 12px;
+  background: #f0eaff;
+  color: #4d388f;
+  padding: 12px;
+  min-height: 48px;
+  font-weight: 850;
+}
+.sentence .tile { background: white; }
+.hint {
+  background: #f4f0ff;
+  border-radius: 15px;
+  padding: 12px;
+  text-align: center;
+  color: #594c7b;
+  margin-bottom: 12px;
+}
+.result-number {
+  font-size: 46px;
+  font-weight: 950;
+  text-align: center;
+  color: #694bc4;
+}
+.trophy {
+  text-align: center;
+  font-size: 75px;
+}
+.review-item {
+  background: #f8f5ff;
+  border-radius: 13px;
+  padding: 13px;
+  margin: 9px 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+footer {
+  padding: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #7a718e;
+}
+@media(min-width:650px) {
+  .menu {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+}
+@media(max-width:360px) {
+  .choices { grid-template-columns: 1fr; }
+  .card { padding: 17px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="shell brand">
+    <div>
+      <h1>🌈 English Adventure</h1>
+      <p>Unit 7 · My Clothes</p>
+    </div>
+    <div id="starCount" class="stars">⭐ 0</div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  💜 English Adventure · Learn by playing!
+</footer>
+
+<script>
+(() => {
+"use strict";
+
+/*
+  ENGLISH ADVENTURE
+  Single-file application.
+  No external dependencies.
+  No database.
+  No global JavaScript declarations.
+*/
+
+const app = document.getElementById("app");
+const starDisplay = document.getElementById("starCount");
+
+const PREFIX = "english-adventure-class-v1";
+
+let student = "";
+let language = "es";
+let progressData = {
+  stars: 0,
+  best: 0,
+  played: 0
+};
+let game = null;
+
+const skirtSVG = `
+<svg viewBox="0 0 100 100" aria-label="skirt">
+<path d="M28 12H72L68 31L88 84Q50 95 12 84L32 31Z"
+fill="#e894c7" stroke="#a35ea5" stroke-width="3"/>
+<path d="M31 26H69M37 34L30 80M50 34V87M63 34L70 80"
+stroke="#ba67b1" stroke-width="2.6" fill="none"/>
+</svg>`;
+
+const clothing = [
+  {
+    word:"skirt", spanish:"falda",
+    icon:skirtSVG, plural:false,
+    definition:"A piece of clothing worn below the waist."
+  },
+  {
+    word:"jacket", spanish:"chaqueta",
+    icon:"🧥", plural:false,
+    definition:"Clothing you wear over your shirt."
+  },
+  {
+    word:"trousers", spanish:"pantalones",
+    icon:"👖", plural:true,
+    definition:"Clothing that covers both legs."
+  },
+  {
+    word:"T-shirt", spanish:"polera o camiseta",
+    icon:"👕", plural:false,
+    definition:"A casual shirt with short sleeves."
+  },
+  {
+    word:"socks", spanish:"calcetines",
+    icon:"🧦", plural:true,
+    definition:"Clothing you wear on your feet."
+  },
+  {
+    word:"cap", spanish:"gorra",
+    icon:"🧢", plural:false,
+    definition:"A hat with a visor."
+  },
+  {
+    word:"hat", spanish:"sombrero",
+    icon:"👒", plural:false,
+    definition:"Something you wear on your head."
+  },
+  {
+    word:"shoes", spanish:"zapatos",
+    icon:"👟", plural:true,
+    definition:"Things you wear on your feet to walk."
+  }
+];
+
+const adjectives = [
+  {
+    word:"long", spanish:"largo/a",
+    icon:"📏", definition:"Not short."
+  },
+  {
+    word:"short", spanish:"corto/a",
+    icon:"✂️", definition:"Not long."
+  },
+  {
+    word:"old", spanish:"viejo/a",
+    icon:"🕰️", definition:"Not new."
+  },
+  {
+    word:"new", spanish:"nuevo/a",
+    icon:"✨", definition:"Not old."
+  },
+  {
+    word:"beautiful", spanish:"hermoso/a",
+    icon:"💖", definition:"Very pretty."
+  },
+  {
+    word:"colourful", spanish:"colorido/a",
+    icon:"🌈", definition:"Full of many colours."
+  }
+];
+
+const people = [
+  {person:"👦 Tom",item:"jacket",pronoun:"his"},
+  {person:"👧 Mia",item:"skirt",pronoun:"her"},
+  {person:"👦 Leo",item:"cap",pronoun:"his"},
+  {person:"👧 Emma",item:"shoes",pronoun:"her"},
+  {person:"👦 Ben",item:"socks",pronoun:"his"},
+  {person:"👧 Amy",item:"hat",pronoun:"her"},
+  {person:"👦 Sam",item:"trousers",pronoun:"his"},
+  {person:"👧 Lily",item:"T-shirt",pronoun:"her"}
+];
+
+const sentences = [
+  {
+    en:"This is his jacket.",
+    es:"Esta es su chaqueta (de él)."
+  },
+  {
+    en:"This is her skirt.",
+    es:"Esta es su falda (de ella)."
+  },
+  {
+    en:"These are his socks.",
+    es:"Estos son sus calcetines (de él)."
+  },
+  {
+    en:"These are her shoes.",
+    es:"Estos son sus zapatos (de ella)."
+  },
+  {
+    en:"His trousers are long.",
+    es:"Sus pantalones son largos (de él)."
+  },
+  {
+    en:"Her skirt is beautiful.",
+    es:"Su falda es hermosa (de ella)."
+  },
+  {
+    en:"This is her cap.",
+    es:"Esta es su gorra (de ella)."
+  },
+  {
+    en:"His T-shirt is colourful.",
+    es:"Su polera es colorida (de él)."
+  }
+];
+
+const activities = [
+  {
+    id:"flash",icon:"🃏",
+    en:"Magic Flashcards",es:"Tarjetas mágicas",
+    descEN:"Look, listen and learn",
+    descES:"Mira, escucha y aprende"
+  },
+  {
+    id:"clothes",icon:"👕",
+    en:"Clothes Quiz",es:"Adivina la ropa",
+    descEN:"8 clothing questions",
+    descES:"8 preguntas de vocabulario"
+  },
+  {
+    id:"adjectives",icon:"🌈",
+    en:"Adjectives",es:"Los adjetivos",
+    descEN:"6 descriptive words",
+    descES:"6 palabras descriptivas"
+  },
+  {
+    id:"hisHer",icon:"👧",
+    en:"His or Her?",es:"His or Her?",
+    descEN:"Who owns it?",
+    descES:"¿De quién es?"
+  },
+  {
+    id:"thisThese",icon:"🔍",
+    en:"This or These?",es:"This or These?",
+    descEN:"One or more?",
+    descES:"¿Uno o varios?"
+  },
+  {
+    id:"order",icon:"🧩",
+    en:"Build Sentences",es:"Ordena las frases",
+    descEN:"Put words in order",
+    descES:"Construye oraciones"
+  },
+  {
+    id:"spelling",icon:"✏️",
+    en:"Spelling",es:"Escribe en inglés",
+    descEN:"Write clothing words",
+    descES:"Practica la escritura"
+  },
+  {
+    id:"commands",icon:"🧢",
+    en:"Dress Up!",es:"¡A vestirse!",
+    descEN:"Follow English commands",
+    descES:"Comprende las instrucciones"
+  },
+  {
+    id:"listening",icon:"🔊",
+    en:"Listening Game",es:"Escucha y elige",
+    descEN:"Listen and find the picture",
+    descES:"Escucha y encuentra la imagen"
+  },
+  {
+    id:"exam",icon:"🏆",
+    en:"Practice Test",es:"Simulacro final",
+    descEN:"20 questions and results",
+    descES:"20 preguntas y resultados"
+  }
+];
+
+function tr(en,es) {
+  return language === "es" ? es : en;
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[c]);
+}
+
+function shuffle(array) {
+  const result = [...array];
+  for(let i=result.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [result[i],result[j]]=[result[j],result[i]];
+  }
+  return result;
+}
+
+function normalize(value) {
+  return String(value).trim().toLowerCase()
+    .replace(/[‐–—]/g,"-")
+    .replace(/\s+/g," ");
+}
+
+function loadJSON(key,fallback) {
+  try {
+    const value=localStorage.getItem(key);
+    return value ? JSON.parse(value) : fallback;
+  } catch(e) {
+    return fallback;
+  }
+}
+
+function saveJSON(key,value) {
+  try {
+    localStorage.setItem(key,JSON.stringify(value));
+  } catch(e) {
+    // Storage may be unavailable in private mode.
+  }
+}
+
+function profileKey(name) {
+  return PREFIX+":student:"+normalize(name);
+}
+
+function saveSession() {
+  saveJSON(PREFIX+":session",{student,language});
+}
+
+function loadProfile() {
+  const saved=loadJSON(profileKey(student),{});
+  progressData={
+    stars:Number(saved.stars)||0,
+    best:Number(saved.best)||0,
+    played:Number(saved.played)||0
+  };
+}
+
+function saveProfile() {
+  if(student)saveJSON(profileKey(student),progressData);
+  updateStars();
+}
+
+function updateStars() {
+  starDisplay.textContent="⭐ "+progressData.stars;
+}
+
+function speak(text) {
+  if(!("speechSynthesis" in window)) {
+    alert(tr(
+      "Speech is not available in this browser.",
+      "La pronunciación no está disponible en este navegador."
+    ));
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+
+  const utterance=new SpeechSynthesisUtterance(text);
+  utterance.lang="en-GB";
+  utterance.rate=0.8;
+  utterance.pitch=1.08;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+function button(action,label,kind="primary",extra="") {
+  return `<button type="button" class="${kind}"
+    data-action="${action}" ${extra}>${label}</button>`;
+}
+
+function iconFor(word) {
+  const item=clothing.find(x=>x.word===word);
+  return item ? item.icon : "👕";
+}
+
+function createQuestion(en,es,right,pool,icon,speech,pictureOptions=false) {
+  const wrong=shuffle([...new Set(pool)].filter(x=>x!==right))
+    .slice(0,3);
+
+  return {
+    en,es,right,icon,speech,pictureOptions,
+    choices:shuffle([right,...wrong])
+  };
+}
+
+function clothesQuestions() {
+  const pool=clothing.map(x=>x.word);
+
+  return clothing.map(c=>createQuestion(
+    "What item of clothing is this?",
+    "¿Cómo se dice «"+c.spanish+"» en inglés?",
+    c.word,pool,c.icon,c.word
+  ));
+}
+
+function adjectiveQuestions() {
+  const pool=adjectives.map(x=>x.word);
+
+  return adjectives.map(a=>createQuestion(
+    "Which adjective means: "+a.definition,
+    "¿Cómo se dice «"+a.spanish+"» en inglés?",
+    a.word,pool,a.icon,a.word
+  ));
+}
+
+function possessiveQuestions() {
+  return people.map(p=>{
+    const isPlural=["socks","shoes","trousers"].includes(p.item);
+    const prefix=isPlural?"These are":"This is";
+
+    return createQuestion(
+      p.person+": "+prefix+" ___ "+p.item+".",
+      p.person+": "+prefix+" ___ "+p.item+".",
+      p.pronoun,["his","her"],iconFor(p.item),
+      prefix+" "+p.pronoun+" "+p.item+"."
+    );
+  });
+}
+
+function thisTheseQuestions() {
+  return clothing.map(c=>{
+    const verb=c.plural?"are":"is";
+    const right=c.plural?"These":"This";
+
+    return createQuestion(
+      "___ "+verb+" my "+c.word+".",
+      "Completa: ___ "+verb+" my "+c.word+".",
+      right,["This","These"],c.icon,
+      right+" "+verb+" my "+c.word+"."
+    );
+  });
+}
+
+function commandsQuestions() {
+  const pool=clothing.map(x=>x.word);
+
+  return clothing.map(c=>createQuestion(
+    "Put on your "+c.word+"!",
+    "Escoge la imagen: Put on your "+c.word+"!",
+    c.word,pool,"🧒",
+    "Put on your "+c.word+"!",true
+  ));
+}
+
+function listeningQuestions() {
+  const pool=clothing.map(x=>x.word);
+
+  return clothing.map(c=>createQuestion(
+    "Listen and choose the correct picture.",
+    "Escucha y selecciona la imagen correcta.",
+    c.word,pool,"🔊",c.word,true
+  ));
+}
+
+function makeQuestions(id) {
+  if(id==="clothes")return shuffle(clothesQuestions());
+  if(id==="adjectives")return shuffle(adjectiveQuestions());
+  if(id==="hisHer")return shuffle(possessiveQuestions());
+  if(id==="thisThese")return shuffle(thisTheseQuestions());
+  if(id==="commands")return shuffle(commandsQuestions());
+  if(id==="listening")return shuffle(listeningQuestions());
+
+  if(id==="exam") {
+    return shuffle([
+      ...clothesQuestions(),
+      ...adjectiveQuestions(),
+      ...shuffle(possessiveQuestions()).slice(0,4),
+      ...shuffle(thisTheseQuestions()).slice(0,2)
+    ]);
+  }
+
+  return [];
+}
+
+function startActivity(id) {
+  let items=[];
+
+  if(id==="flash")items=shuffle([...clothing,...adjectives]);
+  else if(id==="order")items=shuffle(sentences);
+  else if(id==="spelling")items=shuffle(clothing);
+  else items=makeQuestions(id);
+
+  game={
+    id,items,
+    index:0,
+    score:0,
+    selected:null,
+    revealed:false,
+    used:[],
+    orderBank:[],
+    feedback:"",
+    checked:false,
+    typed:"",
+    mistakes:[]
+  };
+
+  prepareStep();
+  render();
+  window.scrollTo(0,0);
+}
+
+function prepareStep() {
+  if(!game)return;
+
+  game.selected=null;
+  game.revealed=false;
+  game.used=[];
+  game.feedback="";
+  game.checked=false;
+  game.typed="";
+
+  if(game.id==="order") {
+    const count=game.items[game.index].en.split(" ").length;
+    game.orderBank=shuffle([...Array(count).keys()]);
+  }
+}
+
+function addStar() {
+  game.score++;
+  progressData.stars++;
+  saveProfile();
+}
+
+function nextStep() {
+  if(game.index===game.items.length-1) {
+    finishGame();
+    return;
+  }
+
+  game.index++;
+  prepareStep();
+  render();
+  window.scrollTo(0,0);
+}
+
+function finishGame() {
+  if(game.id==="exam" && game.score>progressData.best) {
+    progressData.best=game.score;
+  }
+
+  if(game.id!=="flash")progressData.played++;
+  saveProfile();
+
+  game.finishedId=game.id;
+  game.id="finished";
+
+  render();
+  window.scrollTo(0,0);
+}
+
+function currentTitle() {
+  const found=activities.find(x=>x.id===game.id);
+  return found?tr(found.en,found.es):"English Adventure";
+}
+
+function gameHeading() {
+  const percentage=Math.round(
+    game.index/game.items.length*100
+  );
+
+  return `
+    <div class="game-heading">
+      ${button("home",tr("← Home","← Inicio"),"secondary")}
+      <strong>${game.index+1} / ${game.items.length}</strong>
+    </div>
+    <h2>${currentTitle()}</h2>
+    <div class="progress">
+      <div class="progress-fill" style="width:${percentage}%"></div>
+    </div>`;
+}
+
+function continueButton() {
+  return button("next",
+    game.index===game.items.length-1
+      ?tr("See results 🏆","Ver resultado 🏆")
+      :tr("Next →","Siguiente →")
+  );
+}
+
+function notice(ok,yes,no) {
+  return `<div class="notice ${ok?"ok":"no"}">
+    ${ok?yes:no}</div>`;
+}
+
+function languageControls() {
+  return `
+    <div class="language-group">
+      <button class="lang-button ${language==="en"?"active":""}"
+        data-action="language" data-lang="en">
+        🇬🇧 English Only
+      </button>
+      <button class="lang-button ${language==="es"?"active":""}"
+        data-action="language" data-lang="es">
+        🇨🇱 English + Español
+      </button>
+    </div>`;
+}
+
+function toolbar() {
+  return `
+    <div class="toolbar">
+      ${languageControls()}
+      ${student?button("changeStudent",
+        "👤 "+escapeHTML(student),"student-button"):""}
+    </div>`;
+}
+
+function renderRegistration() {
+  app.innerHTML=`
+    ${toolbar()}
+    <section class="card welcome center">
+      <div class="trophy">🎒🌈</div>
+      <h2>${tr(
+        "Welcome to English Adventure!",
+        "¡Bienvenidos a English Adventure!"
+      )}</h2>
+
+      <p>${tr(
+        "Enter your name to start learning.",
+        "Escribe tu nombre para comenzar a aprender."
+      )}</p>
+
+      <form id="studentForm">
+        <input id="studentName" class="input-name"
+          type="text" maxlength="24" required
+          autocomplete="off"
+          placeholder="${tr("Your name","Tu nombre")}">
+        <button class="primary" type="submit">
+          ${tr("Let's play! 🚀","¡Vamos a jugar! 🚀")}
+        </button>
+      </form>
+
+      <p class="muted">${tr(
+        "Your stars and scores stay on this device.",
+        "Tus estrellas y resultados se guardan en este dispositivo."
+      )}</p>
+    </section>`;
+}
+
+function renderHome() {
+  app.innerHTML=`
+    ${toolbar()}
+    <section class="card welcome">
+      <h2>${tr(
+        "Hi, "+escapeHTML(student)+"! 👋",
+        "¡Hola, "+escapeHTML(student)+"! 👋"
+      )}</h2>
+
+      <p>${tr(
+        "Are you ready to learn about clothes? Choose a game, listen to English words and collect stars!",
+        "¿Listo para aprender sobre la ropa? Elige un juego, escucha palabras en inglés y gana estrellas."
+      )}</p>
+
+      <p>🏆 ${tr("Best practice test","Mejor simulacro")}:
+        <strong>${progressData.best}/20</strong></p>
+
+      <p>🎮 ${tr("Activities completed","Actividades completadas")}:
+        <strong>${progressData.played}</strong></p>
+    </section>
+
+    <div class="menu">
+      ${activities.map(a=>`
+        <button class="game" data-action="start"
+          data-id="${a.id}">
+          <span class="emoji">${a.icon}</span>
+          <strong>${tr(a.en,a.es)}</strong>
+          <small>${tr(a.descEN,a.descES)}</small>
+        </button>`).join("")}
+    </div>
+
+    <p class="center muted">${tr(
+      "Start with the flashcards and finish with the practice test!",
+      "Empieza con las tarjetas y termina con el simulacro."
+    )}</p>`;
+}
+
+function renderFlashcards() {
+  const item=game.items[game.index];
+
+  const meaning=language==="es"
+    ?item.spanish:item.definition;
+
+  app.innerHTML=`
+    ${toolbar()}
+    <section class="card">
+      ${gameHeading()}
+
+      <div class="picture">${item.icon}</div>
+      <div class="vocab-word">${item.word}</div>
+
+      <p class="translation">${
+        game.revealed
+        ?meaning
+        :tr("Can you say this word?","¿Sabes qué significa?")
+      }</p>
+
+      <div class="actions">
+        ${button("speak","🔊 "+tr("Listen","Escuchar"),"secondary")}
+        ${button("reveal",game.revealed
+          ?tr("Hide","Ocultar")
+          :tr("Show meaning","Ver significado"),"secondary")}
+      </div>
+
+      <div class="actions">${continueButton()}</div>
+    </section>`;
+}
+
+function renderMultipleChoice() {
+  const q=game.items[game.index];
+  const answered=game.selected!==null;
+  const isExam=game.id==="exam";
+
+  let hint="";
+  if(game.id==="hisHer" && language==="es") {
+    hint=`<div class="hint">
+      👦 <strong>his</strong> = de él ·
+      👧 <strong>her</strong> = de ella
+    </div>`;
+  }
+
+  if(game.id==="thisThese" && language==="es") {
+    hint=`<div class="hint">
+      This is = uno · These are = varios
+    </div>`;
+  }
+
+  const options=q.choices.map((choice,i)=>{
+    let className="choice";
+
+    if(answered && !isExam) {
+      if(choice===q.right)className+=" correct";
+      else if(choice===game.selected)className+=" incorrect";
+    } else if(answered && choice===game.selected) {
+      className+=" selected";
+    }
+
+    const contents=q.pictureOptions
+      ?`<span class="option-picture">${iconFor(choice)}</span>`
+      :escapeHTML(choice);
+
+    return `
+      <button class="${className}"
+        data-action="choose" data-index="${i}"
+        aria-label="${escapeHTML(choice)}"
+        ${answered?"disabled":""}>
+        ${contents}
+      </button>`;
+  }).join("");
+
+  let message="";
+
+  if(answered) {
+    if(isExam) {
+      message=`<div class="notice">${tr(
+        "✅ Answer recorded",
+        "✅ Respuesta registrada"
+      )}</div>`;
+    } else {
+      message=notice(
+        game.selected===q.right,
+        tr("Excellent! ⭐","¡Excelente! ⭐"),
+        tr("Correct answer: ","Respuesta correcta: ")+q.right
+      );
+    }
+  }
+
+  app.innerHTML=`
+    ${toolbar()}
+    <section class="card">
+      ${gameHeading()}
+      ${hint}
+
+      <div class="picture">${q.icon}</div>
+
+      <div class="question">
+        ${tr(q.en,q.es)}
+      </div>
+
+      <div class="choices">${options}</div>
+      ${message}
+
+      <div class="actions">
+        ${button("speak",
+          "🔊 "+tr("Listen","Escuchar"),"secondary")}
+        ${answered?continueButton():""}
+      </div>
+    </section>`;
+}
+
+function renderSentenceOrder() {
+  const item=game.items[game.index];
+  const words=item.en.split(" ");
+
+  const selectedWords=game.used.length
+    ?game.used.map((i,pos)=>`
+        <button class="tile" data-action="removeWord"
+          data-index="${pos}" ${game.checked?"disabled":""}>
+          ${escapeHTML(words[i])}
+        </button>`).join("")
+    :`<span class="muted">${tr(
+      "Tap the words below...",
+      "Toca las palabras de abajo..."
+    )}</span>`;
+
+  const available=game.orderBank
+    .filter(i=>!game.used.includes(i))
+    .map(i=>`
+      <button class="tile" data-action="addWord"
+        data-index="${i}" ${game.checked?"disabled":""}>
+        ${escapeHTML(words[i])}
+      </button>`).join("");
+
+  let message="";
+  if(game.feedback==="ok") {
+    message=notice(true,
+      tr("Perfect sentence! ⭐","¡Oración perfecta! ⭐"),"");
+  }
+  if(game.feedback==="no") {
+    message=notice(false,"",
+      tr("Try a different order.","Intenta otro orden."));
+  }
+
+  app.innerHTML=`
+    ${toolbar()}
+    <section class="card">
+      ${gameHeading()}
+
+      <p class="center muted">${tr(
+        "Put the words in the correct order.",
+        "Ordena las palabras para formar una oración."
+      )}</p>
+
+      ${language==="es"
+        ?`<div class="hint">${item.es}</div>`:""}
+
+      <div class="sentence">${selectedWords}</div>
+      <div class="wordbank">${available}</div>
+      ${message}
+
+      <div class="actions">
+        ${game.checked?continueButton():
+          button("checkOrder",
+            tr("Check ✓","Comprobar ✓"),"primary",
+            game.used.length!==words.length?"disabled":"")}
+        ${!game.checked?button("resetOrder",
+          tr("↻ Reset","↻ Reiniciar"),"secondary"):""}
+        ${button("speak","🔊 "+tr("Listen","Escuchar"),
+          "secondary")}
+      </div>
+    </section>`;
+}
+
+function renderSpelling() {
+  const item=game.items[game.index];
+  let message="";
+
+  if(game.feedback==="ok") {
+    message=notice(true,
+      tr("Great spelling! ⭐","¡Muy bien escrito! ⭐"),"");
+  }
+  if(game.feedback==="no") {
+    message=notice(false,"",
+      tr("Correct spelling: ","Se escribe: ")+item.word);
+  }
+
+  app.innerHTML=`
+    ${toolbar()}
+    <section class="card">
+      ${gameHeading()}
+
+      <div class="picture">${item.icon}</div>
+      <div class="question">${tr(
+        "Write the word in English.",
+        "Escribe «"+item.spanish+"» en inglés."
+      )}</div>
+
+      <input id="spellingInput" class="answer-input"
+        type="text" autocomplete="off" autocapitalize="off"
+        autocorrect="off" spellcheck="false"
+        placeholder="${tr("Your answer","Tu respuesta")}"
+        ${game.checked?"disabled":""}>
+
+      ${message}
+
+      <div class="actions">
+        ${game.checked?continueButton():
+          button("checkSpelling",tr("Check ✓","Comprobar ✓"))}
+        ${button("speak","🔊 "+tr("Listen","Escuchar"),
+          "secondary")}
+      </div>
+    </section>`;
+
+  const field=document.getElementById("spellingInput");
+  field.value=game.typed;
+}
+
+function renderResults() {
+  const flash=game.finishedId==="flash";
+  const total=game.items.length;
+  const percent=flash?100:Math.round(game.score/total*100);
+
+  const trophy=percent>=85?"🏆":percent>=60?"🌟":"💪";
+
+  const message=flash
+    ?tr("You reviewed all the flashcards!",
+      "¡Repasaste todas las tarjetas!")
+    :percent>=85
+      ?tr("Amazing work! You are doing great!",
+        "¡Excelente trabajo! ¡Lo hiciste genial!")
+      :percent>=60
+        ?tr("Good job! Keep practising!",
+          "¡Buen trabajo! Sigue practicando.")
+        :tr("Keep learning! You can do it!",
+          "¡Sigue aprendiendo! ¡Tú puedes!");
+
+  let review="";
+
+  if(game.mistakes.length) {
+    review=`
+      <h3>${tr("Review your mistakes","Repasa tus errores")}</h3>
+      ${game.mistakes.map(m=>`
+        <div class="review-item">
+          <strong>${escapeHTML(tr(m.en,m.es))}</strong>
+          <div>❌ ${tr("Your answer","Tu respuesta")}:
+            ${escapeHTML(m.selected)}</div>
+          <div>✅ ${tr("Correct answer","Respuesta correcta")}:
+            <strong>${escapeHTML(m.right)}</strong></div>
+        </div>`).join("")}`;
+  }
+
+  app.innerHTML=`
+    ${toolbar()}
+    <section class="card">
+      <div class="trophy">${trophy}</div>
+      <h2 class="center">${tr(
+        "Well done, ","¡Muy bien, "
+      )}${escapeHTML(student)}!</h2>
+
+      <div class="result-number">
+        ${flash?total+" "+tr("cards","tarjetas"):
+          game.score+" / "+total}
+      </div>
+
+      <p class="center">${message}</p>
+
+      ${game.finishedId==="exam"
+        ?`<p class="center muted">
+          ${tr("Best test score","Mejor simulacro")}:
+          ${progressData.best}/20
+        </p>`:""}
+
+      ${review}
+
+      <div class="actions">
+        ${button("home",tr("🏠 Home","🏠 Inicio"))}
+        ${button("repeat",tr("🔁 Play again","🔁 Jugar otra vez"),
+          "secondary")}
+      </div>
+    </section>`;
+}
+
+function render() {
+  updateStars();
+
+  if(!student) {
+    renderRegistration();
+    return;
+  }
+
+  if(!game || game.id==="home") {
+    renderHome();
+    return;
+  }
+
+  if(game.id==="flash")renderFlashcards();
+  else if(game.id==="order")renderSentenceOrder();
+  else if(game.id==="spelling")renderSpelling();
+  else if(game.id==="finished")renderResults();
+  else renderMultipleChoice();
+}
+
+// Handle all buttons using one event listener.
+document.addEventListener("click",event=>{
+  const element=event.target.closest("button[data-action]");
+  if(!element || element.disabled)return;
+
+  const action=element.dataset.action;
+
+  if(action==="language") {
+    language=element.dataset.lang==="en"?"en":"es";
+    saveSession();
+    render();
+    return;
+  }
+
+  if(action==="changeStudent") {
+    student="";
+    game=null;
+    progressData={stars:0,best:0,played:0};
+    saveSession();
+    render();
+    return;
+  }
+
+  if(action==="home") {
+    game=null;
+    render();
+    return;
+  }
+
+  if(action==="start") {
+    startActivity(element.dataset.id);
+    return;
+  }
+
+  if(action==="repeat") {
+    startActivity(game.finishedId);
+    return;
+  }
+
+  if(action==="next") {
+    nextStep();
+    return;
+  }
+
+  if(action==="reveal") {
+    game.revealed=!game.revealed;
+    render();
+    return;
+  }
+
+  if(action==="speak") {
+    const item=game.items[game.index];
+    const phrase=typeof item==="string"
+      ?item:(item.speech||item.en||item.word);
+
+    speak(phrase);
+    return;
+  }
+
+  if(action==="choose") {
+    if(game.selected!==null)return;
+
+    const item=game.items[game.index];
+    const choice=item.choices[Number(element.dataset.index)];
+
+    game.selected=choice;
+
+    if(choice===item.right) {
+      addStar();
+    } else {
+      game.mistakes.push({
+        en:item.en,es:item.es,
+        selected:choice,right:item.right
+      });
+    }
+
+    render();
+    return;
+  }
+
+  if(action==="addWord") {
+    if(game.checked)return;
+
+    const index=Number(element.dataset.index);
+    if(!game.used.includes(index)) {
+      game.used.push(index);
+      game.feedback="";
+      render();
+    }
+    return;
+  }
+
+  if(action==="removeWord") {
+    if(game.checked)return;
+
+    game.used.splice(Number(element.dataset.index),1);
+    game.feedback="";
+    render();
+    return;
+  }
+
+  if(action==="resetOrder") {
+    game.used=[];
+    game.feedback="";
+    render();
+    return;
+  }
+
+  if(action==="checkOrder") {
+    const item=game.items[game.index];
+    const words=item.en.split(" ");
+
+    if(game.used.length!==words.length)return;
+
+    const answer=game.used.map(i=>words[i]).join(" ");
+
+    if(answer===item.en) {
+      game.feedback="ok";
+      game.checked=true;
+      addStar();
+    } else {
+      game.feedback="no";
+    }
+
+    render();
+    return;
+  }
+
+  if(action==="checkSpelling") {
+    if(game.checked)return;
+
+    const field=document.getElementById("spellingInput");
+    game.typed=field.value;
+
+    if(!game.typed.trim()) {
+      field.focus();
+      return;
+    }
+
+    const item=game.items[game.index];
+    const correct=normalize(game.typed)===normalize(item.word);
+
+    game.checked=true;
+    game.feedback=correct?"ok":"no";
+
+    if(correct) {
+      addStar();
+    } else {
+      game.mistakes.push({
+        en:"Spell the word: "+item.word,
+        es:"Escribe: "+item.spanish,
+        selected:game.typed,right:item.word
+      });
+    }
+
+    render();
+    return;
+  }
+});
+
+// Student registration.
+document.addEventListener("submit",event=>{
+  if(event.target.id!=="studentForm")return;
+
+  event.preventDefault();
+
+  const field=document.getElementById("studentName");
+  const name=field.value.trim();
+
+  if(!name)return;
+
+  student=name;
+  game=null;
+
+  loadProfile();
+  saveSession();
+  render();
+
+  window.scrollTo(0,0);
+});
+
+// Enter key for spelling questions.
+document.addEventListener("keydown",event=>{
+  if(event.key!=="Enter")return;
+  if(event.target.id!=="spellingInput")return;
+
+  event.preventDefault();
+
+  const check=document.querySelector(
+    '[data-action="checkSpelling"]'
+  );
+
+  if(check)check.click();
+});
+
+// Recover the last student on this device.
+const session=loadJSON(PREFIX+":session",{});
+
+if(session && typeof session.student==="string") {
+  student=session.student;
+}
+
+if(session && session.language==="en") {
+  language="en";
+}
+
+if(student)loadProfile();
+
+render();
+
+})();
+</script>
+
+</body>
+</html>
